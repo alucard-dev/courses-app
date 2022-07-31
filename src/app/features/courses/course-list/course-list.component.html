@@ -1,0 +1,9 @@
+<app-course-card *ngFor="let course of courses" [course]="course">
+  <div class="btn-group" role="group">
+    <app-button btnName="Show course"></app-button>
+    <ng-template [ngIf]="isEditable">
+      <app-button btnIcon="faTrash"></app-button>
+      <app-button btnIcon="faPencil"></app-button>
+    </ng-template>
+  </div>
+</app-course-card>
