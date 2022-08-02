@@ -15,8 +15,8 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [COMPONENTS],
+  declarations: COMPONENTS,
   imports: [CommonModule, NgbModule, FontAwesomeModule],
-  exports: [COMPONENTS],
+  exports: COMPONENTS,
 })
 export class SharedModule {}

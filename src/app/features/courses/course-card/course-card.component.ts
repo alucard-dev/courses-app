@@ -11,25 +11,18 @@ export interface Course {
 @Component({
   selector: 'app-course-card',
   templateUrl: './course-card.component.html',
-  styleUrls: ['./course-card.component.css']
+  styleUrls: ['./course-card.component.css'],
 })
 export class CourseCardComponent implements OnInit {
   @Input() course!: Course;
-  constructor() { }
+  
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
   transformMinutes(value: number): string {
     let hours = Math.floor(value / 60);
     let minutes = Math.floor(value % 60);
-    let postfix=''
-    if(hours>1){
-      postfix =' hrs'
-    }
-    else{
-      postfix=' hr'
-    }
+    const postfix = hours > 1 ? ' hrs' : ' hr';
+
     return hours + ':' + minutes + postfix;
   }
-
 }
