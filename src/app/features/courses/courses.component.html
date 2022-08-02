@@ -1,0 +1,19 @@
+<app-header>
+  <div class="">
+    <span class="mt-5 ml-5">{{ userName }}</span>
+    <app-button btnName="Logout"></app-button>
+  </div>
+</app-header>
+
+<ng-template #courseList [ngIf]="courses.length" [ngIfElse]="info">
+  <app-course-list [courses]="courses" [isEditable]="true"></app-course-list>
+</ng-template>
+
+<ng-template #info>
+  <app-info
+    title="Your list is empty"
+    text="Please use the 'Add new course' button to add your first course"
+  >
+    <app-button btnName="Add new course"></app-button>
+  </app-info>
+</ng-template>
