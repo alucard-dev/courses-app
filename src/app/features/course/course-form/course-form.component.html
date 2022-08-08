@@ -21,13 +21,10 @@
             </div>
             <div formArrayName="authors">
               <h4>Authors list</h4>
-              <div *ngFor = "let author of authors.controls; let i = index" >
-                   <div [formGroupName]="i">
-                      <div class="input-group mb-3">
-                          <input type="text" formControlName="name" readonly class="form-control form-control-plaintext">
-                          <button class="btn btn-primary" (click)="deleteAuthor(i)">Delete author</button>
-                      </div>
-                  </div>
+                <div *ngFor = "let author of authors.controls; let i = index"  class="input-group mb-3">
+                  <span class="form-control">{{author.value}}</span>
+                  <!-- <input type="text" [formControlName]="i" readonly class="form-control form-control-plaintext"> -->
+                  <button class="btn btn-primary" (click)="deleteAuthor(i)">Delete author</button>
               </div>
             </div>
             <label>Duration</label>

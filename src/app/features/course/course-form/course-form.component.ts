@@ -3,6 +3,7 @@ import {
   AbstractControl,
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   ValidationErrors,
   Validators,
@@ -45,21 +46,11 @@ export class CourseFormComponent implements OnInit {
     return this.form.get('authors') as FormArray;
   }
 
-  newAuthor(authorName: String): FormGroup {
-    return this.fb.group({
-      name: authorName,
-    });
-  }
-
   addAuthor(authorName: string) {
-    // this.form.value.authors.push(authorName);
-    // console.log("author ", this.form.value.authors)
-    this.authors.push(this.newAuthor(authorName));
+    this.authors.push(new FormControl(authorName));
   }
 
   deleteAuthor(authorIndex: number) {
-    // console.log("delete ", authorIndex)
-    // this.form.value.authors.splice(authorIndex, 1);
     this.authors.removeAt(authorIndex);
   }
 
