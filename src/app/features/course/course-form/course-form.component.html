@@ -1,0 +1,40 @@
+<div class="container-fluid d-flex justify-content-center">
+    <div class="card w-75 mb-3">
+        <form [formGroup]="form">
+            <p>
+              <label>Title</label>
+              <input class="form-control" type="text" formControlName="title">
+              <span *ngIf ="title?.errors?.required && title?.touched" class="text-danger">The title is required</span>
+              <button type="submit" class="btn btn-success" [disabled]="form.invalid">Create </button>
+            </p>
+            <p>
+              <label>Description</label>
+              <textarea class="form-control" formControlName="description"></textarea>
+              <span *ngIf ="description?.errors?.required && description?.touched" class="text-danger">Description is required</span>
+            </p>
+
+            <div class="form-group">
+              <label for="authorName">Author name</label>
+              <input type="text" name="authorName" formControlName = "authorName" class="form-control" >
+              <button (click)="addAuthor(form.controls.authorName.value)"
+               class="btn btn-primary mt-3 mb-3">Create author</button>
+            </div>
+            <div formArrayName="authors">
+              <h4>Authors list</h4>
+              <div *ngFor = "let author of authors.controls; let i = index" >
+                   <div [formGroupName]="i">
+                      <div class="input-group mb-3">
+                          <input type="text" formControlName="name" readonly class="form-control form-control-plaintext">
+                          <button class="btn btn-primary" (click)="deleteAuthor(i)">Delete author</button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <label>Duration</label>
+            <input class="form-control" type="number" formControlName="duration" min="0" >
+            <span *ngIf ="duration?.errors?.required && duration?.touched" class="text-danger">Duration is required</span>
+            <span *ngIf ="duration?.errors?.min && duration?.touched" class="text-danger">Minimum duration valuse is 0</span>
+            <div>Duration: {{duration?.value | duration}} </div>
+          </form>
+    </div>
+</div>

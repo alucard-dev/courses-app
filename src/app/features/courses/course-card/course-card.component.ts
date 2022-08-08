@@ -19,10 +19,10 @@ export class CourseCardComponent implements OnInit {
   ngOnInit(): void {}
 
   transformMinutes(value: number): string {
-    let hours = Math.floor(value / 60);
-    let minutes = Math.floor(value % 60);
+    var hours = Math.floor(value / 60);
+    var minutes = Math.floor(value % 60);
     const postfix = hours > 1 ? ' hrs' : ' hr';
 
-    return hours + ':' + minutes + postfix;
+    return `${hours}:${minutes} ${postfix}`;
   }
 }
