@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  @Input() inputValue: string = '';
+  @Output() search = new EventEmitter();
 
-  constructor() { }
+  public onSearchClick(form: NgForm) {
+    if (this.inputValue) {
+      this.search.emit(this.inputValue);
+    }
+    alert(this.inputValue);
+  }
 
   ngOnInit(): void {
   }
-
 }

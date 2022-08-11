@@ -4,7 +4,10 @@
     <app-button btnName="Logout"></app-button>
   </div>
 </app-header>
-
+<app-login></app-login>
+<app-registration></app-registration>
+<app-course-form></app-course-form>
+<app-search></app-search>
 <ng-template #courseList [ngIf]="courses.length" [ngIfElse]="info">
   <app-course-list [courses]="courses" [isEditable]="true"></app-course-list>
 </ng-template>
@@ -12,8 +15,7 @@
 <ng-template #info>
   <app-info
     title="Your list is empty"
-    text="Please use the 'Add new course' button to add your first course"
-  >
+    text="Please use the 'Add new course' button to add your first course">
     <app-button btnName="Add new course"></app-button>
   </app-info>
 </ng-template>

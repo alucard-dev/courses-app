@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div>
+  <h3 class="text-center">Login</h3>
+    <div class="container-fluid d-flex justify-content-center">
+      <form #f="ngForm" (ngSubmit)="onFormSubmit(f)">
+        <p>
+          <label>Email</label>
+          <input class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" required appEmailValidator>
+          <span *ngIf = "email.errors?.required && email.touched" class="text-danger">Email is required</span>
+          <span *ngIf= "email.errors?.emailInvalid && !email.errors?.required && (email.dirty || email.touched)" class="text-danger">Email {{email.value}} is invalid</span>
+        </p>
+        <p>
+          <label>Password</label>
+          <input class="form-control"name="password" type="password" #password="ngModel" [(ngModel)]="user.password" required>
+          <span *ngIf="password.touched && password.invalid" class="text-danger">Password is required</span>
+        </p>
+        <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Login</button>
+        <div>
+          If you don't have an account you can<p class="text-center"><a href="">Registration</a></p>
+        </div>
+      </form>
+    </div>
+  </div>

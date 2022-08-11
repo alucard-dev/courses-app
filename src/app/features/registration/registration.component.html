@@ -1,1 +1,28 @@
-<p>registration works!</p>
+<div>
+  <h3 class="text-center">Registration</h3>
+    <div class="container-fluid d-flex justify-content-center">
+      <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+        <p>
+          <label>Name</label>
+          <input class="form-control" type="text" formControlName="name">
+          <span *ngIf ="name?.errors?.required && name?.touched" class="text-danger">The name is required</span>
+          <span *ngIf ="name?.errors?.minlength && (name?.dirty || name?.touched)" class="text-danger">The minimum name lenght is 6</span>
+        </p>
+        <p>
+          <label>Email</label>
+          <input class="form-control" type="text" formControlName="email">
+          <span *ngIf ="email?.errors?.required && email?.touched" class="text-danger">Email is required</span>
+          <span *ngIf ="email?.errors?.emailInvalid && (email?.dirty || email?.touched)" class="text-danger">Email {{email?.value}} is invalid</span>
+        </p>
+        <p>
+          <label>Password</label>
+          <input class="form-control" type="password" formControlName="password">
+          <span *ngIf ="password?.errors?.required && password?.touched" class="text-danger">Password is required</span>
+        </p>
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Registration</button>
+        <div>
+          If you have an account you can <a href="">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
