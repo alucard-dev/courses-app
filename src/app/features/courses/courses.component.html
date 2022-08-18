@@ -1,6 +1,6 @@
 <app-header>
   <div class="">
-    <span class="mt-5 ml-5">{{ userName }}</span>
+    <span class="mt-5 ml-5"> {{ userName$ | async}}</span>
     <app-button btnName="Logout" (click)="onLogoutClick()"></app-button>
   </div>
 </app-header>

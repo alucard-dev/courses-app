@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { CoursesStoreService } from 'src/app/services/courses-store.service';
 import { mockedCourseList } from '..//..//../assets/mocks';
+import { UserStateFacade } from 'src/app/user/store/user.facade';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -10,15 +12,18 @@ import { mockedCourseList } from '..//..//../assets/mocks';
   styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent implements OnInit {
-  @Input() userName = 'Dave';
+  public userName$: Observable<string > = this.userStateFacade.name$;
   courses = mockedCourseList;
 
-  constructor(private authService: AuthService, private router: Router,  private courseStoreService: CoursesStoreService) {
+  constructor(private authService: AuthService, private router: Router,  private courseStoreService: CoursesStoreService,private userStateFacade: UserStateFacade) {
     this.courseStoreService.getAll().subscribe((data) => {
       this.courses = data;
     });
   }
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.userStateFacade.getCurrentUser()
+  }
 
   onLogoutClick() {
     this.authService.logout();

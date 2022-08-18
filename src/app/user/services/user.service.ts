@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { HOST } from 'src/app/app.constants';
 import { SessionStorageService } from 'src/app/auth/services/session-storage.service';
-import { User } from './user-store.service';
+import { User } from "src/app/models/user";
 
 
 @Injectable({

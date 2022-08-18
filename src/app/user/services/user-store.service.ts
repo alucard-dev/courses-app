@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { UserService } from './user.service';
+import { User } from "src/app/models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +28,4 @@ export class UserStoreService {
       }
       );
   }
-}
-export interface User {
-  name: string;
-  email: string;
-  password: string;
-  role: string;
-  id: string;
 }
