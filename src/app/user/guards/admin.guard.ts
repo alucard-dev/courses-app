@@ -8,13 +8,14 @@ import {
 } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { UserStoreService } from '../services/user-store.service';
+import { UserStateFacade } from '../store/user.facade';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminGuard implements CanActivate {
   constructor(
-    private userStoreService: UserStoreService,
+    private userStateFacade: UserStateFacade,
     private router: Router
   ) {}
   canActivate(
@@ -25,7 +26,7 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.userStoreService.isAdmin$.pipe(
+    return this.userStateFacade.isAdmin$.pipe(
       map((isAdmin) => {
         console.log('Is admin', isAdmin);
         if (isAdmin) {
