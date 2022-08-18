@@ -1,5 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { Course } from '../models/course';
 import { CoursesService } from './courses.service';
 
@@ -14,50 +20,59 @@ export class CoursesStoreService {
   public courses$: Observable<Course[]> = this.courses$$.asObservable();
   public isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
 
-  constructor(private coursesService: CoursesService) {
-   }
-
-  public getAll(): void {
+  constructor(private coursesService: CoursesService) {}
+  /// TODO REPLACE ALL
+  public getAll(): Observable<Course[]> {
     this.isLoading$$.next(true);
-    this.coursesService.getAll().subscribe(
-      (courses) => {
-        this.courses$$.next(courses);
+    return this.coursesService.getAll().pipe(
+      tap((value) => {
+        this.courses$$.next(value);
+      }),
+      switchMap(() => this.courses$),
+      tap((value) => {
         this.isLoading$$.next(false);
-      }
+      })
     );
+
+    // .subscribe(
+    //   (courses) => {
+    //     this.courses$$.next(courses);
+    //     this.isLoading$$.next(false);
+    //   }
+    // );
   }
 
-  public createCourse(course: Course): void {
-     this.coursesService.createCourse(course)
-      .subscribe(() => {
-        this.courses$$.getValue().push(course);
-        let nextValue = this.courses$$.getValue();
-        this.courses$$.next(nextValue);
-      });
+  public createCourse(course: Course): Observable<Course[]> {
+    return this.coursesService
+      .createCourse(course)
+      .pipe(switchMap(() => this.getAll()));
+    // .subscribe(() => {
+    //   this.courses$$.getValue().push(course);
+    //   let nextValue = this.courses$$.getValue();
+    //   this.courses$$.next(nextValue);
+    // });
   }
 
   public editCourse(course: Course, id: string) {
-    this.coursesService.editCourse(course, id)
-      .subscribe(() => {
-        const currentValue = this.courses$$.getValue();
-        const index = currentValue.findIndex(course => course.id === id);
-        const nextValue = currentValue.splice(index, 1, course);
+    this.coursesService.editCourse(course, id).subscribe(() => {
+      const currentValue = this.courses$$.getValue();
+      const index = currentValue.findIndex((course) => course.id === id);
+      const nextValue = currentValue.splice(index, 1, course);
 
-        this.courses$$.next(nextValue);
-      });
+      this.courses$$.next(nextValue);
+    });
   }
 
   public getCourse(id: string): Observable<Course> {
-    return this.coursesService.getCourse(id)
+    return this.coursesService.getCourse(id);
   }
 
   public deleteCourse(id: string) {
-    this.coursesService.deleteCourse(id)
-      .subscribe(() => {
-        const currentValue = this.courses$$.getValue();
-        const index = currentValue.findIndex(course => course.id === id);
-        const nextValue = currentValue.splice(index, 1);
-        this.courses$$.next(nextValue);
-      });
+    this.coursesService.deleteCourse(id).subscribe(() => {
+      const currentValue = this.courses$$.getValue();
+      const index = currentValue.findIndex((course) => course.id === id);
+      const nextValue = currentValue.splice(index, 1);
+      this.courses$$.next(nextValue);
+    });
   }
 }

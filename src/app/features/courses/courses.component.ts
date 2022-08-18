@@ -14,10 +14,9 @@ export class CoursesComponent implements OnInit {
   courses = mockedCourseList;
 
   constructor(private authService: AuthService, private router: Router,  private courseStoreService: CoursesStoreService) {
-    this.courseStoreService.getAll()
-    this.courseStoreService.courses$.subscribe((data) => {
-        this.courses = data;
-      });
+    this.courseStoreService.getAll().subscribe((data) => {
+      this.courses = data;
+    });
   }
   ngOnInit(): void {}
 
