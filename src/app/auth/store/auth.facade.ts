@@ -15,9 +15,10 @@ import { getSpecificErrorMessage, getToken, isUserAuthorized } from './auth.sele
   providedIn: 'root',
 })
 export class AuthStateFacade {
-  public isUserAuthorized$ = this.store.pipe(select(isUserAuthorized));
+  public isAuthorized$ = this.store.pipe(select(isUserAuthorized));
   public getToken$ = this.store.pipe(select(getToken));
-  public getSpecificErrorMessage$ = this.store.pipe(select(getSpecificErrorMessage));
+  public getLoginErrorMessage$ = this.store.pipe(select(getSpecificErrorMessage));
+  public getRegisterErrorMessage$ = this.store.pipe(select(getSpecificErrorMessage));
 
   constructor(private store: Store<State>) {
   }

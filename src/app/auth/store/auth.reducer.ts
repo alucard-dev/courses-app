@@ -23,7 +23,7 @@ import {
   };
   
 
-  export const authDataReducer = createReducer(
+  export const reduce = createReducer(
     initialState,
     on(requestLogin, (state) => state),
     on(requestLoginSuccess, (state, { token }) => ({
@@ -40,4 +40,4 @@ import {
   );
 
 
-export const authReducer = (state: AuthState | undefined, action: Action) => authDataReducer(state, action);
+export const authReducer = (state: AuthState | undefined, action: Action) => reduce(state, action);

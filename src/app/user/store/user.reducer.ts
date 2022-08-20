@@ -5,6 +5,8 @@ import {
   requestCurrentUserSuccess,
 } from './user.actions';
 
+export const userFeatureKey = 'user';
+
 export interface UserState {
   isAdmin: boolean;
   name: string;
@@ -15,7 +17,7 @@ export const initialState: UserState = {
   name: '',
 };
 
-export const userDataReducer = createReducer(
+export const reduce = createReducer(
   initialState,
   on(requestCurrentUser, (state) => state),
   on(requestCurrentUserFail, (state, action) => ({
@@ -29,4 +31,4 @@ export const userDataReducer = createReducer(
   }))
 );
 
-export const userReducer = (state: UserState | undefined, action: Action) => userDataReducer(state, action);
+export const userReducer = (state: UserState | undefined, action: Action) => reduce(state, action);

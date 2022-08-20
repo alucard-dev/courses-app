@@ -17,7 +17,7 @@ import {
   getCourses,
   getErrorMessage,
   isAllCoursesLoading,
-  isSearchingState,
+  isSearchingStateSelector,
   isSingleCourseLoading,
 } from './courses.selectors';
 
@@ -27,7 +27,7 @@ import {
 export class CoursesStateFacade {
   public isAllCoursesLoading$ = this.store.pipe(select(isAllCoursesLoading));
   public isSingleCourseLoading$ = this.store.pipe(select(isSingleCourseLoading));
-  public isSearchingState$ = this.store.pipe(select(isSearchingState));
+  public isSearchingState$ = this.store.pipe(select(isSearchingStateSelector));
   public courses$ = this.store.pipe(select(getCourses));
   public allCourses$ = this.store.pipe(select(getAllCourses));
   public course$ = this.store.pipe(select(getCourse));
@@ -43,8 +43,8 @@ export class CoursesStateFacade {
     this.store.dispatch(requestSingleCourse({ id }));
   }
 
-  public getFilteredCourses(filterStr: string) {
-    this.store.dispatch(requestFilteredCourses({ filterStr }));
+  public getFilteredCourses(searchValue : string) {
+    this.store.dispatch(requestFilteredCourses({ searchValue }));
   }
 
   public editCourse(course: Course, id: string) {

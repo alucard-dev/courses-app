@@ -16,7 +16,7 @@ export class AuthorizedGuard implements CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authStateFacade.isUserAuthorized$.pipe(
+    return this.authStateFacade.isAuthorized$.pipe(
       map((value) => {
         if (value) {
           return true;

@@ -23,7 +23,7 @@ export const initialAuthorsState: AuthorsState = {
 };
 
 
-export const authorsDataReducer = createReducer(
+export const reduce = createReducer(
   initialAuthorsState,
   on(requestAuthors, (state) => ({ ...state })),
   on(requestAuthorsSuccess, (state, { authors }) => ({
@@ -47,4 +47,4 @@ export const authorsDataReducer = createReducer(
   })),
 );
 
-export const authorsReducer = (state: AuthorsState | undefined, action: Action): AuthorsState => authorsDataReducer(state, action);
+export const authorsReducer = (state: AuthorsState | undefined, action: Action): AuthorsState => reduce(state, action);

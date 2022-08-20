@@ -42,7 +42,7 @@ export const initialCoursesState: CoursesState = {
 };
 
 
-export const coursesDataReducer = createReducer(
+export const reduce = createReducer(
   initialCoursesState,
   on(requestAllCourses, (state) => ({ ...state, isAllCoursesLoading: true })),
   on(requestAllCoursesSuccess, (state, { courses }) => ({
@@ -108,4 +108,4 @@ export const coursesDataReducer = createReducer(
   }))
 );
 
-export const coursesReducer = (state: CoursesState | undefined, action: Action): CoursesState => coursesDataReducer(state, action);
+export const coursesReducer = (state: CoursesState | undefined, action: Action): CoursesState => reduce(state, action);
