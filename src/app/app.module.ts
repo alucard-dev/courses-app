@@ -25,9 +25,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({
-      name: 'NgRx Demo App',
-      // maxAge: 25,
-      // autoPause: true,
+      name: 'NgRx Demo App'
     })
   ],
   providers: [
