@@ -4,19 +4,19 @@ import { Inject, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SessionStorageService {
-  private window: Window
+  @Inject('Window') window: Window
 
   constructor() {this.window = window }
 
   getToken() {
-    return this.window.sessionStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   setToken(token: string) {
-    this.window.sessionStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
   }
 
   deleteToken() {
-    this.window.sessionStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 }

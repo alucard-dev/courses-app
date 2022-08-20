@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 import { UserStoreService } from 'src/app/user/services/user-store.service';
 @Component({
   selector: 'app-login',
@@ -13,23 +13,10 @@ export class LoginComponent implements OnInit {
     email: '',
     password: '',
   };
-  constructor(private authService: AuthService,private router: Router, private userStoreService:  UserStoreService) {
-  }
-
+  constructor(private authStateFacade: AuthStateFacade) {}
 
   ngOnInit() {}
   onFormSubmit(form: NgForm) {
-    this.user.email = form.value.email;
-    this.user.password = form.value.password;
-    this.authService.login(form.value.email, form.value.password).subscribe(
-      () => this.router.navigate(['/courses']),
-    );
-    this.userStoreService.getUser()
-
-    this.authService.isAuthorized$.subscribe(result => {
-      if (result) {
-        alert('Successfully logged in');
-      }
-    })
+    this.authStateFacade.login(form.value);
   }
 }

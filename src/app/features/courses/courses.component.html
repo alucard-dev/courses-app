@@ -1,6 +1,6 @@
 <app-header>
   <div class="">
-    <span class="mt-5 ml-5">{{ userName }}</span>
+    <span class="mt-5 ml-5"> {{ userName$ | async}}</span>
     <app-button btnName="Logout" (click)="onLogoutClick()"></app-button>
   </div>
 </app-header>
@@ -8,10 +8,11 @@
 <app-registration></app-registration>
 <app-course-form></app-course-form> -->
 <app-search></app-search>
-<ng-template #courseList [ngIf]="courses.length" [ngIfElse]="info">
-  <app-course-list [courses]="courses" [isEditable]="true"></app-course-list>
+<ng-template #courseList [ngIf]="(courses$|async)?.length" [ngIfElse]="info">
+  <app-course-list [courses]="courses$|async" [isEditable]="true"></app-course-list>
   <app-button btnName="Add new course"></app-button>
 </ng-template>
+<p *ngFor="let item of authors$ | async">{{ item.name}}</p>
 <ng-template #info>
   <app-info
     title="Your list is empty"

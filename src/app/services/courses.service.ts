@@ -32,4 +32,8 @@ export class CoursesService {
   public deleteCourse(id: string) {
     return this.http.delete(`${HOST}/courses/${id}`);
   }
+  public filterCourses(searchValue : string): Observable<Course[]> {
+    return this.http.get<{ result: Course[] }>(`${HOST}/courses/filter?${searchValue}`)
+      .pipe(map((data) => data.result));
+  }
 }

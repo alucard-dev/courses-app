@@ -4,8 +4,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { CoursesComponent } from './courses.component';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CourseListComponent } from './course-list/course-list.component';
-import { LoginModule } from '../login/login.module';
-import { RegistrationModule } from '../registration/registration.module';
 import { CourseModule } from '../course/course.module';
 import { CoursesRoutingModule } from './courses-routing.module';
 
