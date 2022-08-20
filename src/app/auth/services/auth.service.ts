@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionStorageService } from './session-storage.service';
 import { map, tap } from 'rxjs/operators';
 import { HOST } from 'src/app/app.constants';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -17,29 +18,29 @@ export class AuthService {
     private sessionStorageService: SessionStorageService
   ) {}
 
-  login(email: string, password: string) {
-    return this.http
-      .post<{ result: string }>(`${HOST}/login`, {
-        email,
-        password,
+  login(user: User) {
+    return this.http.post<{ result: string }>(`${HOST}/login`, user).pipe(
+      map((response) => response.result),
+      tap((data) => {
+        console.log('LOGIN', data);
+        this.sessionStorageService.setToken(data);
+        this.isAuthorized$$.next(true);
       })
-      .pipe(
-        map((data) => {
-          console.log('LOGIN');
-          this.sessionStorageService.setToken(data.result);
-          this.isAuthorized$$.next(true);
-        })
-      );
-  }
-  logout() {
-    const headers = new HttpHeaders().set('Authorization',<string>this.sessionStorageService.getToken());
-    this.http
-      .delete<{ result: string }>(`${HOST}/logout`,)
-      .subscribe(() => {
-        this.sessionStorageService.deleteToken();
-        this.isAuthorized$$.next(false);
-      });
+    );
   }
 
-  register() {}
+  logout() {
+    return this.http.delete<{ result: string }>(`${HOST}/logout`).pipe(
+      tap(() => {
+        this.sessionStorageService.deleteToken();
+        this.isAuthorized$$.next(false);
+      })
+    );
+  }
+
+  public register(user: User) {
+    this.http
+      .post<{ result: string }>(`${HOST}/register`, user)
+      .pipe(map((data) => data.result));
+  }
 }

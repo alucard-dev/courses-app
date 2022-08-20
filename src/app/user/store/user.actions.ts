@@ -7,13 +7,11 @@ export enum UserRequestActionTypes {
   getCurrentUserFail = '[User] Request Current User Fail',
 }
 
-export const requestCurrentUser = createAction(
-  UserRequestActionTypes.getCurrentUser
-);
-
+export const requestCurrentUser = createAction(UserRequestActionTypes.getCurrentUser);
 export const requestCurrentUserSuccess = createAction(
-  UserRequestActionTypes.getCurrentUserSuccess, props<{ user: User }>());
-
+  UserRequestActionTypes.getCurrentUserSuccess,
+  props<{ user: User }>()
+);
 export const requestCurrentUserFail = createAction(
   UserRequestActionTypes.getCurrentUserFail,
   props<{ message: string }>()

@@ -16,10 +16,7 @@ export class UserService {
   ) {}
 
   getUser() {
-    const headers = new HttpHeaders().set('Authorization',<string>this.sessionStorageService.getToken());
-    return this.http
-      // .get<{ result: User }>(`${HOST}/users/me`,{headers})
-      .get<{ result: User }>(`${HOST}/users/me`,)
+    return this.http.get<{ result: User }>(`${HOST}/users/me`,)
       .pipe(map((data) => data.result));
   }
 }

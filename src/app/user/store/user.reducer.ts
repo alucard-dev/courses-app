@@ -22,12 +22,11 @@ export const userDataReducer = createReducer(
     ...state,
     errorMessage: action.message,
   })),
-  on(requestCurrentUserSuccess, (state, {user}) => ({
+  on(requestCurrentUserSuccess, (state, { user }) => ({
     ...state,
     name: user.name,
-    isAdmin: user.role==='admin',
+    isAdmin: user.role === 'admin',
   }))
 );
-
 
 export const userReducer = (state: UserState | undefined, action: Action) => userDataReducer(state, action);

@@ -2,7 +2,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
-  Subscription,
   switchMap,
   tap,
 } from 'rxjs';
@@ -29,28 +28,16 @@ export class CoursesStoreService {
         this.courses$$.next(value);
       }),
       switchMap(() => this.courses$),
-      tap((value) => {
+      tap(() => {
         this.isLoading$$.next(false);
       })
     );
-
-    // .subscribe(
-    //   (courses) => {
-    //     this.courses$$.next(courses);
-    //     this.isLoading$$.next(false);
-    //   }
-    // );
   }
 
   public createCourse(course: Course): Observable<Course[]> {
     return this.coursesService
       .createCourse(course)
       .pipe(switchMap(() => this.getAll()));
-    // .subscribe(() => {
-    //   this.courses$$.getValue().push(course);
-    //   let nextValue = this.courses$$.getValue();
-    //   this.courses$$.next(nextValue);
-    // });
   }
 
   public editCourse(course: Course, id: string) {
